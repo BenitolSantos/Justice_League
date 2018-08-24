@@ -1,3 +1,4 @@
+require 'pry'
 #a cli is a user interface.
 #a user can make a choice what to scrape.
 # type list or details
@@ -35,9 +36,10 @@ class JusticeLeague::CommandLineInterface
     puts "Accessing Database."
     puts ""
     puts "Login:"
-    User = gets.chomp
+    binding.pry
+    @User = gets.chomp
     puts "Password:"
-    Password = gets.chomp
+    @Password = gets.chomp
     puts "Running facial scan..."
     puts ""
     puts "Running DNA scan..."
@@ -48,13 +50,12 @@ class JusticeLeague::CommandLineInterface
   end
 
   def start
-
     puts "Use /help for options. Otherwise enter your command."
-    input = gets.chomp.downcase
-    do {
-    case input
+    @input = gets.chomp.downcase
+    while @input != "/self_destruct" || @input != "/exit"
+      case @input
 
-      when input = "/help"
+      when @input = "/help"
         puts "Accessing help desk..."
         puts ""
         puts "Loading..."
@@ -65,19 +66,19 @@ class JusticeLeague::CommandLineInterface
         puts "/display_members_weaknesses - Displays a list of ways used to take down the justice league."
         puts "/shutdown - Exits database."
         puts "/self_destruct - Erases all info on database and begins Watchtower self destruct sequence."
-        input = gets.chomp.downcase
+        @input = gets.chomp.downcase
       end
 
-      when input = "/display_members_list"
+      when @input = "/display_members_list"
         display_members_list
-        input = gets.chomp.downcase
+        @input = gets.chomp.downcase
       end
 
-      when input = "/access_member_file"
+      when @input = "/access_member_file"
         puts "Please input the member you wish to see info on."
-        member = gets.chomp.downcase
+        @member = gets.chomp.downcase
         JusticeLeague::League_Member.current_members.each do |leaguer.name|
-          if leaguer.name == member
+          if leaguer.name == @member
             puts "Displaying Justice League Member, "+ leaguer.name + "."
             puts "Alias:" + leaguer.alias
             puts "Alignment:" + leaguer.alignment
@@ -88,44 +89,45 @@ class JusticeLeague::CommandLineInterface
             puts "Occupation:" + leaguer.occupation.to_s.gsub("[]","")
           end
         end
-        input = gets.chomp.downcase
+        @input = gets.chomp.downcase
       end
 
       when "/display_members_weaknesses"
         puts "Enter password:"
-        password = gets.chomp.to_s.downcase
-        if password == "deltacharlie-27-5-1939"
+        @weakness_password = gets.chomp.to_s.downcase
+        if @weakness_password == "deltacharlie-27-5-1939"
           puts "loading agamemno contingency..."
           puts "https://www.youtube.com/watch?v=ZJVvrmLSTsg"
         else
           puts "Access Denied."
         end
-        input = gets.chomp.downcase
+        @input = gets.chomp.downcase
       end
 
       when "/shutdown"
         break
       end
 
-    when "/self_destruct"
-      puts "WARNING: ACTIVATION CREATES A 50 KILOTON EXPLOSION."
-      puts "ENTER DETONATION CODE:"
-      code = gets.chomp.to_s
-      if code == "52"
+      when "/self_destruct"
+        puts "WARNING: ACTIVATION CREATES A 50 KILOTON EXPLOSION."
+        puts "ENTER DETONATION CODE:"
+        @code = gets.chomp.to_s
+        if @code == "52"
         puts "OVERHEATING DWARFSTAR DRIVE"
         puts "COUNTDOWN TIMER STARTING..."
-        count = 600
-        puts "TIME REMAINING BEFORE DETONATION: #{count % 60}"
+        @count = 600
+        puts "TIME REMAINING BEFORE DETONATION: #{@count % 60}"
+        end
+      end
+
+
+      else
+        puts "Unknown input detected."
+        puts "Use /help for options. Please enter a working command."
+        @input = gets.chomp
       end
     end
-
-    else
-      puts "Unknown input detected."
-      puts "Use /help for options. Please enter a working command."
-      input = gets.chomp
-    end
-     } while input != "/self_destruct" || input != "/exit"
-    end
+  end
 
   def run
     make_members

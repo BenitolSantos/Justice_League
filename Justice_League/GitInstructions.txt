@@ -1,0 +1,15 @@
+Full Instructions on Git
+
+git init
+git remote add origin git@github.com:BenitolSantos/Justice_League_Database.git
+git pull origin master
+
+for pushing things
+
+git add .
+git commit -m "message here"
+git push -f origin master
+
+screw all this ^
+
+use git clone <link>

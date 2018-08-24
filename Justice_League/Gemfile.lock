@@ -1,0 +1,30 @@
+PATH
+  remote: .
+  specs:
+    Justice_League (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    coderay (1.1.2)
+    method_source (0.9.0)
+    mini_portile (0.6.2)
+    nokogiri (1.6.6.2)
+      mini_portile (~> 0.6.0)
+    pry (0.11.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    rake (10.4.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  Justice_League!
+  bundler (~> 1.16)
+  nokogiri (= 1.6.6.2)
+  pry
+  rake (~> 10.0)
+
+BUNDLED WITH
+   1.16.3

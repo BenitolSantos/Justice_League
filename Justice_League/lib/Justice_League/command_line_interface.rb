@@ -52,9 +52,7 @@ class JusticeLeague::CommandLineInterface
   def start
     puts "Use /help for options. Otherwise enter your command."
     @input = gets.chomp.downcase
-    while @input != "/self_destruct" || @input != "/exit"
       case @input
-
       when @input = "/help"
         puts "Accessing help desk..."
         puts ""
@@ -67,67 +65,54 @@ class JusticeLeague::CommandLineInterface
         puts "/shutdown - Exits database."
         puts "/self_destruct - Erases all info on database and begins Watchtower self destruct sequence."
         @input = gets.chomp.downcase
-      end
+        end
 
-      when @input = "/display_members_list"
-        display_members_list
-        @input = gets.chomp.downcase
-      end
-
-      when @input = "/access_member_file"
-        puts "Please input the member you wish to see info on."
-        @member = gets.chomp.downcase
-        JusticeLeague::League_Member.current_members.each do |leaguer.name|
-          if leaguer.name == @member
-            puts "Displaying Justice League Member, "+ leaguer.name + "."
-            puts "Alias:" + leaguer.alias
-            puts "Alignment:" + leaguer.alignment
-            puts "Identity:" + leaguer.identity
-            puts "Nonhuman Race(empty if human):" + leaguer.race.to_s
-            puts "Citizenship:" + leaguer.citizenship.to_s.gsub("[]","")
-            puts "Martial Status:" + leaguer.marital_status
-            puts "Occupation:" + leaguer.occupation.to_s.gsub("[]","")
+        when @input = "/display_members_list"
+          display_members_list
+          @input = gets.chomp.downcase
+        when @input = "/access_member_file"
+          puts "Please input the member you wish to see info on."
+          @member = gets.chomp.downcase
+          JusticeLeague::League_Member.current_members.each do |leaguer.name|
+            if leaguer.name == @member
+              puts "Displaying Justice League Member, "+ leaguer.name + "."
+              puts "Alias:" + leaguer.alias
+              puts "Alignment:" + leaguer.alignment
+              puts "Identity:" + leaguer.identity
+              puts "Nonhuman Race(empty if human):" + leaguer.race.to_s
+              puts "Citizenship:" + leaguer.citizenship.to_s.gsub("[]","")
+              puts "Martial Status:" + leaguer.marital_status
+              puts "Occupation:" + leaguer.occupation.to_s.gsub("[]","")
+            end
           end
-        end
-        @input = gets.chomp.downcase
-      end
-
-      when "/display_members_weaknesses"
-        puts "Enter password:"
-        @weakness_password = gets.chomp.to_s.downcase
-        if @weakness_password == "deltacharlie-27-5-1939"
-          puts "loading agamemno contingency..."
-          puts "https://www.youtube.com/watch?v=ZJVvrmLSTsg"
+          @input = gets.chomp.downcase
+        when "/display_members_weaknesses"
+          puts "Enter password:"
+          @weakness_password = gets.chomp.to_s.downcase
+            if @weakness_password == "deltacharlie-27-5-1939"
+              puts "loading agamemno contingency..."
+              puts "https://www.youtube.com/watch?v=ZJVvrmLSTsg"
+            else
+              puts "Access Denied."
+            end
+          @input = gets.chomp.downcase
+        when "/shutdown"
+          break
+        when "/self_destruct"
+          puts "WARNING: ACTIVATION CREATES A 50 KILOTON EXPLOSION."
+          puts "ENTER DETONATION CODE:"
+          @code = gets.chomp.to_s
+          if @code == "52"
+            puts "OVERHEATING DWARFSTAR DRIVE"
+            puts "COUNTDOWN TIMER STARTING..."
+            @count = 600
+            puts "TIME REMAINING BEFORE DETONATION: #{@count % 60}"
+          end
         else
-          puts "Access Denied."
-        end
-        @input = gets.chomp.downcase
-      end
-
-      when "/shutdown"
-        break
-      end
-
-      when "/self_destruct"
-        puts "WARNING: ACTIVATION CREATES A 50 KILOTON EXPLOSION."
-        puts "ENTER DETONATION CODE:"
-        @code = gets.chomp.to_s
-        if @code == "52"
-        puts "OVERHEATING DWARFSTAR DRIVE"
-        puts "COUNTDOWN TIMER STARTING..."
-        @count = 600
-        puts "TIME REMAINING BEFORE DETONATION: #{@count % 60}"
-        end
-      end
-
-
-      else
-        puts "Unknown input detected."
-        puts "Use /help for options. Please enter a working command."
-        @input = gets.chomp
-      end
+          puts "Unknown input detected."
+          puts "Use /help for options. Please enter a working command."
+          @input = gets.chomp
     end
-  end
 
   def run
     make_members

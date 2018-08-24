@@ -112,6 +112,7 @@ class JusticeLeague::CommandLineInterface
           puts "Unknown input detected."
           puts "Use /help for options. Please enter a working command."
           @input = gets.chomp
+        end
     end
 
   def run

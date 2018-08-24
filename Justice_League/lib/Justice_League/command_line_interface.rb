@@ -53,20 +53,18 @@ class JusticeLeague::CommandLineInterface
     puts "Use /help for options. Otherwise enter your command."
     @input = gets.chomp.downcase
       case @input
-      when @input = "/help"
-        puts "Accessing help desk..."
-        puts ""
-        puts "Loading..."
-        puts ""
-        puts "List of commands:"
-        puts "/display_members_list - Display a list of current justice league members."
-        puts "/access_member_file - Accesses member's file."
-        puts "/display_members_weaknesses - Displays a list of ways used to take down the justice league."
-        puts "/shutdown - Exits database."
-        puts "/self_destruct - Erases all info on database and begins Watchtower self destruct sequence."
+        when @input = "/help"
+          puts "Accessing help desk..."
+          puts ""
+          puts "Loading..."
+          puts ""
+          puts "List of commands:"
+          puts "/display_members_list - Display a list of current justice league members."
+          puts "/access_member_file - Accesses member's file."
+          puts "/display_members_weaknesses - Displays a list of ways used to take down the justice league."
+          puts "/shutdown - Exits database."
+          puts "/self_destruct - Erases all info on database and begins Watchtower self destruct sequence."
         @input = gets.chomp.downcase
-        end
-
         when @input = "/display_members_list"
           display_members_list
           @input = gets.chomp.downcase

@@ -27,7 +27,9 @@ require 'pry'
 class JusticeLeague::CommandLineInterface
 
   def call
-    JusticeLeague::Scraper.new.scrape_justice_league_page
+    #JusticeLeague::Scraper.new
+    JusticeLeague::Scraper.scrape_justice_league_page #remember the difference between instance and class methods
+    #class methods ^ can be called without instances of the class created.
     puts "...Dwarf Starf Star engine engaged..."
     puts "...System Online..."
     puts "..."
@@ -36,7 +38,6 @@ class JusticeLeague::CommandLineInterface
     puts "Accessing Database."
     puts ""
     puts "Login:"
-    binding.pry
     @User = gets.chomp
     puts "Password:"
     @Password = gets.chomp
@@ -44,16 +45,17 @@ class JusticeLeague::CommandLineInterface
     puts ""
     puts "Running DNA scan..."
     puts ""
-    puts "Greetings #{User}. Welcome to the Justice League Database."
+    puts "Greetings #{@User}. Welcome to the Justice League Database."
     run
     start
   end
 
   def start
     puts "Use /help for options. Otherwise enter your command."
-    @input = gets.chomp.downcase
+    @input = gets.chomp.downcase #REMEMBER CASES DONT NEED =
+      while @input != "123456789"
       case @input
-        when @input = "/help"
+        when "/help"
           puts "Accessing help desk..."
           puts ""
           puts "Loading..."
@@ -65,14 +67,14 @@ class JusticeLeague::CommandLineInterface
           puts "/shutdown - Exits database."
           puts "/self_destruct - Erases all info on database and begins Watchtower self destruct sequence."
         @input = gets.chomp.downcase
-        when @input = "/display_members_list"
+        when "/display_members_list"
           display_members_list
           @input = gets.chomp.downcase
-        when @input = "/access_member_file"
+        when "/access_member_file"
           puts "Please input the member you wish to see info on."
           @member = gets.chomp.downcase
-          JusticeLeague::League_Member.current_members.each do |leaguer.name|
-            if leaguer.name == @member
+          JusticeLeague::League_Member.current_members.each do |leaguer| #leaguer.name not in pipes.
+            if leaguer.name.downcase == @member
               puts "Displaying Justice League Member, "+ leaguer.name + "."
               puts "Alias:" + leaguer.alias
               puts "Alignment:" + leaguer.alignment
@@ -95,6 +97,7 @@ class JusticeLeague::CommandLineInterface
             end
           @input = gets.chomp.downcase
         when "/shutdown"
+          puts "Logging out ..."
           break
         when "/self_destruct"
           puts "WARNING: ACTIVATION CREATES A 50 KILOTON EXPLOSION."
@@ -104,13 +107,19 @@ class JusticeLeague::CommandLineInterface
             puts "OVERHEATING DWARFSTAR DRIVE"
             puts "COUNTDOWN TIMER STARTING..."
             @count = 600
-            puts "TIME REMAINING BEFORE DETONATION: #{@count % 60}"
+            while @count != 0
+              @count -= 1
+            puts "TIME REMAINING BEFORE DETONATION: #{@count}"
+            end
+            puts "BOOOOOOOOOOOOOOMMMMMM!!!!"
+            break
           end
         else
           puts "Unknown input detected."
           puts "Use /help for options. Please enter a working command."
           @input = gets.chomp
         end
+      end
     end
 
   def run

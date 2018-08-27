@@ -7,7 +7,7 @@ class JusticeLeague::Scraper
     puts "in test method"
   end
 
-  def self.scrape_justice_league_page
+  def self.scrape_justice_league_page #should be instance instead of class method.
     #index_page = Nokogiri::HTML(html) #parameter added
     index_page = Nokogiri::HTML(open("http://dc.wikia.com/wiki/Justice_League_(Prime_Earth)"))
     current_league_members = []

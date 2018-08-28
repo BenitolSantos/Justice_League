@@ -130,7 +130,19 @@ class JusticeLeague::CommandLineInterface
             @count = 600
             while @count != 0
               @count -= 1
+            puts " "
+            puts " "
+            puts " "
+            puts " "
+            puts " "
+            puts " "
             puts "TIME REMAINING BEFORE DETONATION: #{@count}"
+            puts " "
+            puts " "
+            puts " "
+            puts " "
+            puts " "
+            puts " "
             end
             puts "BOOOOOOOOOOOOOOMMMMMM!!!!"
             break

@@ -56,6 +56,7 @@ class JusticeLeague::CommandLineInterface
       while @input != "123456789"
       case @input
         when "/help"
+          puts ""
           puts "Accessing help desk..."
           puts ""
           puts "Loading..."
@@ -66,12 +67,20 @@ class JusticeLeague::CommandLineInterface
           puts "/display_members_weaknesses - Displays a list of ways used to take down the justice league."
           puts "/shutdown - Exits database."
           puts "/self_destruct - Erases all info on database and begins Watchtower self destruct sequence."
+          puts ""
         @input = gets.chomp.downcase
         when "/display_members_list"
+          puts ""
           display_members_list
+          puts ""
+          puts "Use /help for options. Otherwise enter your command."
           @input = gets.chomp.downcase
         when "/access_member_file"
-          puts "Please input the member you wish to see info on."
+          puts ""
+          puts "Please input the member you wish to see info on..."
+          puts "If the member is not recognized, the system will ask for a new command."
+          puts "Please consult /display_members_list."
+          puts ""
           @member = gets.chomp.downcase
           JusticeLeague::League_Member.current_members.each do |leaguer| #leaguer.name not in pipes.
             if leaguer.name.downcase == @member
@@ -85,26 +94,38 @@ class JusticeLeague::CommandLineInterface
               puts "Occupation:" + leaguer.occupation.to_s.gsub("[]","")
             end
           end
+          puts ""
+          puts "Use /help for options. Otherwise enter your command."
+          puts ""
           @input = gets.chomp.downcase
         when "/display_members_weaknesses"
+          puts ""
           puts "Enter password:"
           @weakness_password = gets.chomp.to_s.downcase
             if @weakness_password == "deltacharlie-27-5-1939"
               puts "loading agamemno contingency..."
               puts "https://www.youtube.com/watch?v=ZJVvrmLSTsg"
             else
+              puts ""
               puts "Access Denied."
             end
+          puts ""
+          puts "Use /help for options. Otherwise enter your command."
+          puts ""
           @input = gets.chomp.downcase
         when "/shutdown"
+          puts ""
           puts "Logging out ..."
           break
         when "/self_destruct"
+          puts ""
           puts "WARNING: ACTIVATION CREATES A 50 KILOTON EXPLOSION."
           puts "ENTER DETONATION CODE:"
           @code = gets.chomp.to_s
           if @code == "52"
+            puts ""
             puts "OVERHEATING DWARFSTAR DRIVE"
+            puts ""
             puts "COUNTDOWN TIMER STARTING..."
             @count = 600
             while @count != 0
@@ -143,6 +164,7 @@ class JusticeLeague::CommandLineInterface
   end
 
   def display_members_list
+    puts ""
     puts "Displaying current Justice League Members..."
     JusticeLeague::League_Member.current_members.each do |member|
         puts member.name

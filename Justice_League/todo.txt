@@ -1,11 +1,0 @@
-0. OPEN UP EXAMPLE OF THE THING WE ASKED YOU TO DO (WORLD'S BEST RESTAURANTS) X
-1.  Add CLI logic allowing user interaction (including greeting user)   X
-2.  Move environment setup into justice_league.rb X
-  3.  Make startup occur from file other than console X
-  4. Only scrape member details when requested (add_attributes_to_members) X
-  5. Fix printing of details to not show as arrays   X
-6. Add proper README   X
-6a. Gemfile not working/justice-league file not working. X
-7. Clean up file structure X
-8. Review Ruby beforehand "MOCK REVIEW COMING"
-9. use final 1 on 1 and kenlyn interview.

@@ -9,6 +9,7 @@ class JusticeLeague::Scraper
 
   def self.scrape_justice_league_page #should be instance instead of class method.
     #index_page = Nokogiri::HTML(html) #parameter added
+    puts "**********Scraping Main Page*******"
     index_page = Nokogiri::HTML(open("http://dc.wikia.com/wiki/Justice_League_(Prime_Earth)"))
     current_league_members = []
     index_page.css("div.notice a").first(9).collect do |member|
@@ -26,7 +27,7 @@ class JusticeLeague::Scraper
     league_member = {
 
      }
-
+    puts "**********Scraping Detail page ***********"
     profile_page = Nokogiri::HTML(open(profile_url))
       profile_page.css("section.pi-item.pi-group.pi-border-color h2.pi-item-spacing.pi-secondary-background").each do |header|
         if header.text == "Status"
@@ -74,7 +75,7 @@ class JusticeLeague::Scraper
           end
           end
         end
-        league_member
+        league_member #implicit return (ruby only)
     end #DON'T FORCE PUSH! IT OVERWRITES THE COMMIT HISTORY
 
 end

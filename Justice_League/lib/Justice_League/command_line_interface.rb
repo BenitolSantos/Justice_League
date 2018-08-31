@@ -27,8 +27,9 @@ require 'pry'
 class JusticeLeague::CommandLineInterface
 
   def call
+    make_members
     #JusticeLeague::Scraper.new
-    JusticeLeague::Scraper.scrape_justice_league_page #remember the difference between instance and class methods
+    #remember the difference between instance and class methods
     #class methods ^ can be called without instances of the class created.
     puts "...Dwarf Starf Star engine engaged..."
     puts "...System Online..."
@@ -38,23 +39,22 @@ class JusticeLeague::CommandLineInterface
     puts "Accessing Database."
     puts ""
     puts "Login:"
-    @User = gets.chomp
+    user = gets.chomp
     puts "Password:"
-    @Password = gets.chomp
+    password = gets.chomp
     puts "Running facial scan..."
     puts ""
     puts "Running DNA scan..."
     puts ""
-    puts "Greetings #{@User}. Welcome to the Justice League Database."
-    run
+    puts "Greetings #{user}. Welcome to the Justice League Database."
     start
   end
 
   def start
     puts "Use /help for options. Otherwise enter your command."
-    @input = gets.chomp.downcase #REMEMBER CASES DONT NEED =
-      while @input != "123456789"
-      case @input
+    input = gets.chomp.downcase #REMEMBER CASES DONT NEED =
+      while input != "123456789"
+      case input
         when "/help"
           puts ""
           puts "Accessing help desk..."
@@ -68,41 +68,41 @@ class JusticeLeague::CommandLineInterface
           puts "/shutdown - Exits database."
           puts "/self_destruct - Erases all info on database and begins Watchtower self destruct sequence."
           puts ""
-        @input = gets.chomp.downcase
+        input = gets.chomp.downcase
         when "/display_members_list"
           puts ""
           display_members_list
           puts ""
           puts "Use /help for options. Otherwise enter your command."
-          @input = gets.chomp.downcase
+          input = gets.chomp.downcase
         when "/access_member_file"
           puts ""
           puts "Please input the member you wish to see info on..."
           puts "If the member is not recognized, the system will ask for a new command."
           puts "Please consult /display_members_list."
           puts ""
-          @member = gets.chomp.downcase
-          JusticeLeague::League_Member.current_members.each do |leaguer| #leaguer.name not in pipes.
-            if leaguer.name.downcase == @member
-              puts "Displaying Justice League Member, "+ leaguer.name + "."
-              puts "Alias:" + leaguer.alias
-              puts "Alignment:" + leaguer.alignment
-              puts "Identity:" + leaguer.identity
-              puts "Nonhuman Race(empty if human):" + leaguer.race.to_s
-              puts "Citizenship:" + leaguer.citizenship.to_s.gsub("[]","")
-              puts "Martial Status:" + leaguer.marital_status
-              puts "Occupation:" + leaguer.occupation.to_s.gsub("[]","")
-            end
+          member = gets.chomp.downcase
+          leaguer = JusticeLeague::League_Member.find_by_name(member)
+          if !leaguer.identity
+            add_attributes_to_member(leaguer)
           end
+          puts "Displaying Justice League Member, "+ leaguer.name + "."
+          puts "Alias:" + leaguer.alias
+          puts "Alignment:" + leaguer.alignment
+          puts "Identity:" + leaguer.identity
+          puts "Nonhuman Race(empty if human):" + leaguer.race.to_s
+          puts "Citizenship:" + leaguer.citizenship.to_s.gsub("[]","")
+          puts "Martial Status:" + leaguer.marital_status
+          puts "Occupation:" + leaguer.occupation.to_s.gsub("[]","")
           puts ""
           puts "Use /help for options. Otherwise enter your command."
           puts ""
-          @input = gets.chomp.downcase
+          input = gets.chomp.downcase
         when "/display_members_weaknesses"
           puts ""
           puts "Enter password:"
-          @weakness_password = gets.chomp.to_s.downcase
-            if @weakness_password == "deltacharlie-27-5-1939"
+          weakness_password = gets.chomp.to_s.downcase
+            if weakness_password == "deltacharlie-27-5-1939"
               puts "loading agamemno contingency..."
               puts "https://www.youtube.com/watch?v=ZJVvrmLSTsg"
             else
@@ -112,7 +112,7 @@ class JusticeLeague::CommandLineInterface
           puts ""
           puts "Use /help for options. Otherwise enter your command."
           puts ""
-          @input = gets.chomp.downcase
+          input = gets.chomp.downcase
         when "/shutdown"
           puts ""
           puts "Logging out ..."
@@ -121,22 +121,22 @@ class JusticeLeague::CommandLineInterface
           puts ""
           puts "WARNING: ACTIVATION CREATES A 50 KILOTON EXPLOSION."
           puts "ENTER DETONATION CODE:"
-          @code = gets.chomp.to_s
-          if @code == "52"
+          code = gets.chomp.to_s
+          if code == "52"
             puts ""
             puts "OVERHEATING DWARFSTAR DRIVE"
             puts ""
             puts "COUNTDOWN TIMER STARTING..."
-            @count = 600
-            while @count != 0
-              @count -= 1
+            count = 600
+            while count != 0
+              count -= 1
             puts " "
             puts " "
             puts " "
             puts " "
             puts " "
             puts " "
-            puts "TIME REMAINING BEFORE DETONATION: #{@count}"
+            puts "TIME REMAINING BEFORE DETONATION: #{count}"
             puts " "
             puts " "
             puts " "
@@ -150,15 +150,11 @@ class JusticeLeague::CommandLineInterface
         else
           puts "Unknown input detected."
           puts "Use /help for options. Please enter a working command."
-          @input = gets.chomp
+          input = gets.chomp
         end
       end
     end
 
-  def run
-    make_members
-    add_attributes_to_members
-  end
 
   def make_members
     league_array = JusticeLeague::Scraper.scrape_justice_league_page
@@ -167,12 +163,10 @@ class JusticeLeague::CommandLineInterface
 
   end
 
-  def add_attributes_to_members
+  def add_attributes_to_member(member)
     #there was a problem with arrays becoming nil so this was the workaround
-    JusticeLeague::League_Member.current_members.each do |member|
      attributes = JusticeLeague::Scraper.scrape_member_page(member.profile_url)
      member.add_member_attributes(attributes)
-    end
   end
 
   def display_members_list

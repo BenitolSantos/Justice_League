@@ -3,3 +3,6 @@
 require_relative '../lib/justice_league'
 
 JusticeLeague::CommandLineInterface.new.call
+#^ I have a new instance called ^ then I call a class method on it. Then I call a instance method on the new instance.
+#name_spaces - a container. It uses it to define it.
+#clearly defines a part under a container.

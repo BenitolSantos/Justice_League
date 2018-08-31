@@ -10,6 +10,10 @@ class JusticeLeague::League_Member
     @@current_members << self
   end
 
+  def self.find_by_name(name)
+    @@current_members.find {|member| member.name.downcase == name} #fixed using find instead of iterating
+  end
+
   def self.create_from_collection(league_array)
     #problem was that it was hashes within a nested array.
     #an array of arrays filled with hashes, repeating.

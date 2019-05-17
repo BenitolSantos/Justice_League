@@ -1,5 +1,6 @@
 # JusticeLeague
-GREETINGS JUSTICE LEAGUER!!!!
+Welcome New Member.
+This is a state of the art supercomputer loaded within the within Justice League watchtower generously supplied by WayneTech.
 
 #THIS IS THE 3rd version of the justice_league_database project as the first two were deleted.
 

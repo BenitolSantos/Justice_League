@@ -7,20 +7,18 @@ This is Ruby Gem provides a CLI to view the most current_members of the most up 
 
 git clone git@github.com:BenitolSantos/Justice_League.git
 
-cd Justice_League/Justice_League
-
-./bin/justice-league
-
-if there is no permission 
-
-cd bin
-
-chmod 777 justice-league
-
 
 ## Usage
 
-  $ justice-league
+  cd Justice_League/Justice_League
+
+  ./bin/justice-league
+
+  if there is no permission
+
+  cd bin
+
+  chmod 777 justice-league
 
 ## Development
 

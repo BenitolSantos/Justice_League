@@ -5,19 +5,12 @@ This is Ruby Gem provides a CLI to view the most current_members of the most up 
 
 ## Installation
 
-Add this line to your application's Gemfile:
+git clone git@github.com:BenitolSantos/Justice_League.git
 
-```ruby
-gem 'Justice_League'
-```
+cd Justice_League/Justice_League
 
-And then execute:
+./bin/justice-league
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install Justice_League
 
 ## Usage
 

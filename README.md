@@ -11,6 +11,12 @@ cd Justice_League/Justice_League
 
 ./bin/justice-league
 
+if there is no permission 
+
+cd bin
+
+chmod 777 justice-league
+
 
 ## Usage
 
